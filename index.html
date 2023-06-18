@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" type="x-icon" href="LogoEW.svg" sizes="114x114" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Earth Weather</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="/assets/LogoEW.svg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          Books
+        </a>
+        <form class="form-inline">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search for Book"
+            aria-label="Search"
+            id="search-bar"
+          />
+          <button
+            class="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+            id="search-btn"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div
+      class="jumbotron jumbotron-fluid"
+      style="background-color: #1c887b; color: #fefefe"
+    >
+      <div class="container">
+        <h1 class="display-4">Develop Your Imagination</h1>
+        <p class="lead">
+          “The more that you read, the more things you will know. The more that
+          you learn, the more places you’ll go.”
+        </p>
+      </div>
+    </div>
+
+    <!-- Book Shelf -->
+    <div class="container mb-3">
+      <div class="row">
+        <div class="col mb-3">
+          <div id="cards-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quotes -->
+    <div
+      class="container d-flex align-items-center justify-content-center m-auto p-4"
+      style="background-color: #f28861"
+    >
+      <h4>A book is a gift you can open again and again.</h4>
+      <br />
+      <span>—Garrison Keillor</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div
+        class="d-flex align-items-center justify-content-center mt-5"
+        id="footer"
+      >
+        <h5>© 2023 Books™. All Rights Reserved.</h5>
+      </div>
+    </footer>
+  </body>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/all.min.js"></script>
+  <script src="scrips.js"></script>
+  <script>
+    const cardsContainer = document.querySelector("#cards-container");
+    function handleResponse(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+        // in production code, item.text should have the HTML entities escaped.
+        //document.getElementById("bookname").innerHTML +=
+        //  "<br>" + item.volumeInfo.title;
+        const div = document.createElement("div");
+        div.classList.add("mb-3");
+        const name = document.createElement("h3");
+        const species = document.createElement("h3");
+        div.classList = "card";
+        name.innerText = `Name: ${item.volumeInfo.title}`;
+        species.innerText = `Subtitle: ${item.volumeInfo.subtitle}`;
+        div.appendChild(name);
+        div.appendChild(species);
+        cardsContainer.appendChild(div);
+      }
+    }
+  </script>
+
+  <script src="https://www.googleapis.com/books/v1/volumes?q=harry+potter&callback=handleResponse"></script>
+</html>
